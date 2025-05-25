@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}Portfolio - Projects{% endblock %}
+
+{% block content %}
+<section style="padding-top: 120px; padding-bottom: 80px;">
+    <div class="container">
+        <div class="section-title">
+            <h2>My Projects</h2>
+        </div>
+        
+        <div style="text-align: center; margin-bottom: 40px;">
+            <div style="display: inline-flex; background-color: var(--light-gray); border-radius: 30px; padding: 8px; margin-top: 24px;">
+                <button class="filter-btn active" data-filter="all" style="background: none; color: var(--text-primary); padding: 8px 16px; border-radius: 30px; border: none; cursor: pointer; transition: all var(--transition-speed) ease;">All</button>
+                <button class="filter-btn" data-filter="web" style="background: none; color: var(--text-primary); padding: 8px 16px; border-radius: 30px; border: none; cursor: pointer; transition: all var(--transition-speed) ease;">Web</button>
+                <button class="filter-btn" data-filter="mobile" style="background: none; color: var(--text-primary); padding: 8px 16px; border-radius: 30px; border: none; cursor: pointer; transition: all var(--transition-speed) ease;">Mobile</button>
+                <button class="filter-btn" data-filter="design" style="background: none; color: var(--text-primary); padding: 8px 16px; border-radius: 30px; border: none; cursor: pointer; transition: all var(--transition-speed) ease;">Design</button>
+            </div>
+        </div>
+        
+        <div class="projects-grid">
+            {% for project in projects %}
+            <div class="project-card animate-on-scroll" data-category="web">
+                <img src="{{ project.image_url }}" alt="{{ project.title }}" class="project-image">
+                <div class="project-content">
+                    <h3>{{ project.title }}</h3>
+                    <p>{{ project.description }}</p>
+                    <a href="{{ project.project_url }}" class="btn">View Project</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section style="background-color: var(--light-gray); padding: 80px 0;">
+    <div class="container">
+        <div style="text-align: center; max-width: 700px; margin: 0 auto;">
+            <h2 style="font-size: 32px; margin-bottom: 24px;">Want to work together?</h2>
+            <p style="margin-bottom: 32px;">I'm always open to discussing new projects, creative ideas or opportunities to be part of your visions.</p>
+            <a href="{{ url_for('contact') }}" class="btn btn-accent">Contact Me</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Add active styling to selected filter
+                this.style.backgroundColor = 'var(--primary-color)';
+                this.style.color = 'var(--white)';
+                
+                // Remove styling from other filters
+                filterButtons.forEach(btn => {
+                    if (btn !== this) {
+                        btn.style.backgroundColor = '';
+                        btn.style.color = '';
+                    }
+                });
+                
+                const filter = this.getAttribute('data-filter');
+                
+                // Show all projects if filter is 'all'
+                if (filter === 'all') {
+                    projectCards.forEach(card => {
+                        card.style.display = 'block';
+                    });
+                } else {
+                    // Show only projects that match the filter
+                    projectCards.forEach(card => {
+                        if (card.getAttribute('data-category') === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

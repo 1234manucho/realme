@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}Portfolio - Home{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <div class="hero-content animate-on-scroll">
+            <h1>Welcome to <span style="color: var(--accent-color);">My Portfolio</span></h1>
+            <p>I'm a passionate developer creating beautiful, functional websites and applications.</p>
+            <div class="hero-buttons">
+                <a href="{{ url_for('projects') }}" class="btn">View Projects</a>
+                <a href="{{ url_for('contact') }}" class="btn btn-accent">Contact Me</a>
+            </div>
+        </div>
+    </div>
+    <img src="https://images.pexels.com/photos/1181298/pexels-photo-1181298.jpeg" alt="Hero Image" class="hero-image">
+</section>
+
+<section class="about">
+    <div class="container">
+        <div class="section-title">
+            <h2>About Me</h2>
+        </div>
+        <div class="about-content">
+            <div class="about-card animate-on-scroll">
+                <div class="about-card-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3>Web Development</h3>
+                <p>Creating responsive, modern websites using the latest technologies and best practices.</p>
+            </div>
+            <div class="about-card animate-on-scroll">
+                <div class="about-card-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3>Mobile Design</h3>
+                <p>Designing user-friendly interfaces for mobile applications with a focus on user experience.</p>
+            </div>
+            <div class="about-card animate-on-scroll">
+                <div class="about-card-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h3>Database Design</h3>
+                <p>Building efficient database structures to store and retrieve data effectively.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="projects">
+    <div class="container">
+        <div class="section-title">
+            <h2>Featured Projects</h2>
+        </div>
+        <div class="projects-grid">
+            {% for project in projects %}
+            <div class="project-card animate-on-scroll">
+                <img src="{{ project.image_url }}" alt="{{ project.title }}" class="project-image">
+                <div class="project-content">
+                    <h3>{{ project.title }}</h3>
+                    <p>{{ project.description }}</p>
+                    <a href="{{ project.project_url }}" class="btn">View Project</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div style="text-align: center; margin-top: 32px;">
+            <a href="{{ url_for('projects') }}" class="btn">View All Projects</a>
+        </div>
+    </div>
+</section>
+
+<section class="contact">
+    <div class="container">
+        <div class="section-title">
+            <h2>Contact Me</h2>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info animate-on-scroll">
+                <h3>Get In Touch</h3>
+                <p>Feel free to contact me for any project or collaboration. I'm always open to discussing new opportunities.</p>
+                <div class="contact-info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Nairobi, Kenya</span>
+                </div>
+                <div class="contact-info-item">
+                    <i class="fas fa-phone"></i>
+                    <span>0715142906</span>
+                </div>
+                <div class="contact-info-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>enyongesa462@gmail.com</span>
+                </div>
+            </div>
+            <div class="contact-form animate-on-scroll">
+                <form action="{{ url_for('contact') }}" method="POST">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" class="form-control" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

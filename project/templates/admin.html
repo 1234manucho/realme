@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+
+{% block title %}Portfolio - Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="admin-container container">
+    <div class="admin-header">
+        <h2>Admin Dashboard</h2>
+        <a href="{{ url_for('add_project') }}" class="btn">Add New Project</a>
+    </div>
+    
+    <div class="admin-tabs">
+        <div class="admin-tab active" data-target="messages-section">Messages</div>
+        <div class="admin-tab" data-target="projects-section">Projects</div>
+        <div class="admin-tab" data-target="users-section">Users</div>
+    </div>
+    
+    <div class="admin-content">
+        <div id="messages-section" class="admin-content-section">
+            <h3 style="margin-bottom: 16px;">Contact Messages</h3>
+            <table class="admin-table" id="messages-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Subject</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for message in messages %}
+                    <tr>
+                        <td>{{ message.name }}</td>
+                        <td>{{ message.email }}</td>
+                        <td>{{ message.subject }}</td>
+                        <td>{{ message.date_posted.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-sm btn-edit view-message-btn" data-id="{{ message.id }}" data-message="{{ message.message }}">View</button>
+                                <button class="btn btn-sm btn-delete delete-message-btn" data-id="{{ message.id }}">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">No messages found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <div id="projects-section" class="admin-content-section" style="display: none;">
+            <h3 style="margin-bottom: 16px;">Projects</h3>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for project in projects %}
+                    <tr>
+                        <td>{{ project.title }}</td>
+                        <td>{{ project.description[:50] }}{% if project.description|length > 50 %}...{% endif %}</td>
+                        <td>{{ project.date_posted.strftime('%Y-%m-%d') }}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-sm btn-edit">Edit</button>
+                                <button class="btn btn-sm btn-delete">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center">No projects found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <div id="users-section" class="admin-content-section" style="display: none;">
+            <h3 style="margin-bottom: 16px;">Users</h3>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Admin</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{% if user.is_admin %}Yes{% else %}No{% endif %}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-sm btn-edit">Edit</button>
+                                <button class="btn btn-sm btn-delete">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center">No users found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Message Modal -->
+<div id="message-modal" class="modal" style="display: none; position: fixed; z-index: 1050; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4);">
+    <div class="modal-content" style="background-color: var(--white); margin: 15% auto; padding: 20px; border-radius: var(--border-radius); max-width: 500px; box-shadow: var(--shadow-lg);">
+        <span class="modal-close" style="color: var(--text-secondary); float: right; font-size: 28px; font-weight: bold; cursor: pointer;">&times;</span>
+        <h3 style="margin-bottom: 16px;">Message</h3>
+        <div class="modal-body">
+            <p id="modal-message-text" style="white-space: pre-wrap;"></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Tab switching
+        const tabs = document.querySelectorAll('.admin-tab');
+        const contentSections = document.querySelectorAll('.admin-content-section');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const target = this.getAttribute('data-target');
+                
+                // Update active tab
+                tabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show target content
+                contentSections.forEach(section => {
+                    if (section.id === target) {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // View message modal
+        const viewButtons = document.querySelectorAll('.view-message-btn');
+        const modal = document.getElementById('message-modal');
+        const modalClose = document.querySelector('.modal-close');
+        const modalMessageText = document.getElementById('modal-message-text');
+        
+        viewButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const message = this.getAttribute('data-message');
+                modalMessageText.textContent = message;
+                modal.style.display = 'block';
+            });
+        });
+        
+        if (modalClose) {
+            modalClose.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+        }
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+        
+        // Delete message functionality
+        const deleteButtons = document.querySelectorAll('.delete-message-btn');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                if (confirm('Are you sure you want to delete this message?')) {
+                    // Send delete request
+                    fetch(`/api/messages/${id}`, {
+                        method: 'DELETE'
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            // Remove row from table
+                            this.closest('tr').remove();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

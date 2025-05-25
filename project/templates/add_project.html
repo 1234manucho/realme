@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Portfolio - Add Project{% endblock %}
+
+{% block content %}
+<div class="admin-container container">
+    <div class="admin-header">
+        <h2>Add New Project</h2>
+        <a href="{{ url_for('admin') }}" class="btn">Back to Dashboard</a>
+    </div>
+    
+    <div class="admin-content">
+        <form action="{{ url_for('add_project') }}" method="POST">
+            <div class="form-group">
+                <label for="title">Project Title</label>
+                <input type="text" id="title" name="title" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" class="form-control" rows="5" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="image_url">Image URL</label>
+                <input type="url" id="image_url" name="image_url" class="form-control" placeholder="https://example.com/image.jpg">
+            </div>
+            
+            <div class="form-group">
+                <label for="project_url">Project URL</label>
+                <input type="url" id="project_url" name="project_url" class="form-control" placeholder="https://example.com">
+            </div>
+            
+            <div style="display: flex; justify-content: flex-end; gap: 16px; margin-top: 24px;">
+                <a href="{{ url_for('admin') }}" class="btn" style="background-color: var(--medium-gray); color: var(--text-primary);">Cancel</a>
+                <button type="submit" class="btn">Add Project</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

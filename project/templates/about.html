@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block title %}Portfolio - About{% endblock %}
+
+{% block content %}
+<section style="padding-top: 120px; padding-bottom: 60px;">
+    <div class="container">
+        <div class="section-title">
+            <h2>About Me</h2>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 40px; margin-top: 40px;">
+            <div class="animate-on-scroll">
+                <img src="/project/static/images/p.jpg" alt="Profile Picture" style="width: 100%; border-radius: var(--border-radius); box-shadow: var(--shadow-md);">
+            </div>
+            
+            <div class="animate-on-scroll">
+                <h3 style="font-size: 28px; margin-bottom: 16px;">Who Am I?</h3>
+                <p style="margin-bottom: 24px;">
+                    I'm a passionate full-stack developer with a strong focus on creating beautiful, functional, and user-friendly web applications. With over 5 years of experience in the industry, I've worked on a variety of projects ranging from small business websites to complex enterprise applications.
+                </p>
+                
+                <h3 style="font-size: 24px; margin-bottom: 16px;">My Skills</h3>
+                
+                <div style="margin-bottom: 24px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span>HTML/CSS</span>
+                        <span>95%</span>
+                    </div>
+                    <div style="height: 8px; background-color: var(--medium-gray); border-radius: 4px;">
+                        <div style="width: 95%; height: 100%; background-color: var(--primary-color); border-radius: 4px;"></div>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 24px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span>JavaScript</span>
+                        <span>90%</span>
+                    </div>
+                    <div style="height: 8px; background-color: var(--medium-gray); border-radius: 4px;">
+                        <div style="width: 90%; height: 100%; background-color: var(--primary-color); border-radius: 4px;"></div>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 24px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span>Python/Flask</span>
+                        <span>85%</span>
+                    </div>
+                    <div style="height: 8px; background-color: var(--medium-gray); border-radius: 4px;">
+                        <div style="width: 85%; height: 100%; background-color: var(--primary-color); border-radius: 4px;"></div>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 24px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span>SQL/Databases</span>
+                        <span>80%</span>
+                    </div>
+                    <div style="height: 8px; background-color: var(--medium-gray); border-radius: 4px;">
+                        <div style="width: 80%; height: 100%; background-color: var(--primary-color); border-radius: 4px;"></div>
+                    </div>
+                </div>
+                
+                <a href="{{ url_for('contact') }}" class="btn" style="margin-top: 16px;">Contact Me</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section style="background-color: var(--light-gray); padding: 80px 0;">
+    <div class="container">
+        <div class="section-title">
+            <h2>My Experience</h2>
+        </div>
+        
+        <div style="max-width: 800px; margin: 0 auto; position: relative;">
+            <div style="position: absolute; top: 0; bottom: 0; left: 20px; width: 2px; background-color: var(--primary-color);"></div>
+            
+            <div style="position: relative; margin-bottom: 40px; padding-left: 60px;" class="animate-on-scroll">
+                <div style="position: absolute; left: 11px; top: 0; width: 20px; height: 20px; background-color: var(--primary-color); border-radius: 50%;"></div>
+                <div style="background-color: var(--white); padding: 24px; border-radius: var(--border-radius); box-shadow: var(--shadow-md);">
+                    <h3 style="font-size: 22px; margin-bottom: 8px;">Senior Developer</h3>
+                    <p style="color: var(--accent-color); margin-bottom: 16px;">2020 - Present | TechCorp Inc.</p>
+                    <p>Led a team of developers in creating enterprise-level web applications. Implemented best practices and modern technologies to deliver high-quality products.</p>
+                </div>
+            </div>
+            
+            <div style="position: relative; margin-bottom: 40px; padding-left: 60px;" class="animate-on-scroll">
+                <div style="position: absolute; left: 11px; top: 0; width: 20px; height: 20px; background-color: var(--primary-color); border-radius: 50%;"></div>
+                <div style="background-color: var(--white); padding: 24px; border-radius: var(--border-radius); box-shadow: var(--shadow-md);">
+                    <h3 style="font-size: 22px; margin-bottom: 8px;">Web Developer</h3>
+                    <p style="color: var(--accent-color); margin-bottom: 16px;">2017 - 2020 | Digital Solutions LLC</p>
+                    <p>Developed and maintained various client websites and web applications. Collaborated with designers to implement responsive designs and interactive features.</p>
+                </div>
+            </div>
+            
+            <div style="position: relative; padding-left: 60px;" class="animate-on-scroll">
+                <div style="position: absolute; left: 11px; top: 0; width: 20px; height: 20px; background-color: var(--primary-color); border-radius: 50%;"></div>
+                <div style="background-color: var(--white); padding: 24px; border-radius: var(--border-radius); box-shadow: var(--shadow-md);">
+                    <h3 style="font-size: 22px; margin-bottom: 8px;">Junior Developer</h3>
+                    <p style="color: var(--accent-color); margin-bottom: 16px;">2015 - 2017 | WebTech Studios</p>
+                    <p>Started my career building websites and small web applications. Gained experience in HTML, CSS, JavaScript, and backend technologies.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section style="padding: 80px 0;">
+    <div class="container">
+        <div class="section-title">
+            <h2>Education & Certificates</h2>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; margin-top: 40px;">
+            <div class="about-card animate-on-scroll">
+                <div class="about-card-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3>Computer Science Degree</h3>
+                <p>University of Technology<br>2011 - 2015</p>
+            </div>
+            
+            <div class="about-card animate-on-scroll">
+                <div class="about-card-icon">
+                    <i class="fas fa-certificate"></i>
+                </div>
+                <h3>Full-Stack Web Development</h3>
+                <p>Tech Academy<br>2016</p>
+            </div>
+            
+            <div class="about-card animate-on-scroll">
+                <div class="about-card-icon">
+                    <i class="fas fa-award"></i>
+                </div>
+                <h3>UI/UX Design Fundamentals</h3>
+                <p>Design Institute<br>2018</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
